@@ -25,6 +25,13 @@ app.use("/api", authRoutes);
 app.use("/api", laneAndParkingRoutes);
 app.use("/api", Chat);
 
+app.use(pathComp(process.env.PWD + "/client/build"));
+app.get("/", function (req, res) {
+  const index = path.join(process.env.PWD, "/client/build/index.html");
+  console.log(path);
+  res.sendFile(index);
+});
+
 io.on("connection", (socket) => {
   console.log("User Connestec", socket.id);
   socket.on("newlane", (data) => {
@@ -46,12 +53,6 @@ io.on("connection", (socket) => {
   socket.on("Cancel Booking", () => {
     io.emit("Canceled");
   });
-});
-app.use(pathComp(process.env.PWD + "/client/build"));
-app.get("/", function (req, res) {
-  const index = path.join(process.env.PWD, "/client/build/index.html");
-  console.log(path);
-  res.sendFile(index);
 });
 
 server.listen(port, () => {
