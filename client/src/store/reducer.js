@@ -47,6 +47,12 @@ const reducer = (state, action) => {
         ...state,
         parkingSpace: action.payload.data,
       };
+    case "CANCELORDER":
+      let book = state.bookings.filter((data) => data.id === action.payload);
+      console.log("book", book);
+      return {
+        ...state,
+      };
     default:
       return state;
   }

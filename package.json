@@ -5,10 +5,7 @@
   "author": "jamil4321",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nodemon server.js",
-    "generate": "nuxt generate"
+    "start": "nodemon server.js"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.4.2",

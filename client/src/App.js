@@ -7,7 +7,7 @@ import NotFound from "./Components/NotFound";
 import React from "react";
 import Home from "./Components/Home";
 import { useSelector } from "react-redux";
-import io from "socket.io-client";
+import socketCon from "./socket/socket";
 
 function App() {
   const { user, accessToken } = useSelector((state) => {
@@ -15,6 +15,12 @@ function App() {
       user: state.user,
       accessToken: state.accessToken,
     };
+  });
+  React.useEffect(() => {
+    socketCon.emit("hello World");
+    socketCon.on("hello", () => {
+      console.log("hi!");
+    });
   });
   return (
     <Router>

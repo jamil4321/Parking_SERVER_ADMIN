@@ -17,14 +17,28 @@ const io = socket(server, {
 
 const authRoutes = require("./routes/auth.js");
 const laneAndParkingRoutes = require("./routes/laneAndParking.js");
-const feedback = require("./routes/feedback.js");
+const Chat = require("./routes/Chat.js");
 
 app.use("/api", authRoutes);
 app.use("/api", laneAndParkingRoutes);
-app.use("/api", feedback);
+app.use("/api", Chat);
 
 io.on("connection", (socket) => {
   console.log("User Connestec", socket.id);
+  socket.on("newlane", (data) => {
+    console.log("hi! From server");
+    io.emit("UpdateLane", data);
+  });
+  socket.on("delete lane", (data) => {
+    console.log("hi! From server");
+    io.emit("UpdateLane", data);
+  });
+  socket.on("parking Booked", () => {
+    io.emit("parking Update");
+  });
+  socket.on("msg send", () => {
+    io.emit("msg receive");
+  });
 });
 
 server.listen(port, () => {

@@ -24,6 +24,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Modal from "@material-ui/core/Modal";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
+import socketCon from "../socket/socket";
 
 import { useDispatch, useSelector } from "react-redux";
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -79,6 +80,7 @@ const AddLaneAndParking = () => {
   const [openView, setOpenView] = React.useState(false);
   const [laneName, setLaneName] = React.useState("");
   const [parkingArea, setParkingArea] = React.useState(0);
+  const [laneID, setLaneID] = React.useState("");
   const dispatch = useDispatch();
   const { accessToken, lane, parkingSpace } = useSelector((state) => {
     return {
@@ -105,6 +107,11 @@ const AddLaneAndParking = () => {
   const handleOpen = () => {
     setOpen(true);
   };
+  React.useEffect(() => {
+    socketCon.on("parking Update", () => {
+      getPArkingViewData(laneID);
+    });
+  }, []);
 
   const handleClose = () => {
     setOpen(false);
@@ -119,19 +126,26 @@ const AddLaneAndParking = () => {
 
   const getPArkingViewData = async (laneId) => {
     console.log(laneId);
-    let data = await fetch("http://127.0.0.1:2000/api/getParking", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      },
-      body: JSON.stringify({ laneId }),
-    })
-      .then((res) => res.json())
-      .then((data) => data)
-      .catch((err) => console.log(err));
-    dispatch({ type: "VIEWPARKINGSPACE", payload: data });
-    handleOpenView();
+    if (laneId !== "") {
+      setLaneID(laneId);
+    }
+    if (laneId !== "") {
+      let data = await fetch("http://127.0.0.1:2000/api/getParking", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+        body: JSON.stringify({ laneId }),
+      })
+        .then((res) => res.json())
+        .then((data) => data)
+        .catch((err) => console.log(err));
+
+      dispatch({ type: "VIEWPARKINGSPACE", payload: data });
+
+      handleOpenView();
+    }
   };
   const onSubmitForm = async (e) => {
     e.preventDefault();
@@ -148,6 +162,7 @@ const AddLaneAndParking = () => {
         .then((res) => res.json())
         .then((data) => data)
         .catch((err) => console.log(err));
+      socketCon.emit("newlane", data);
       dispatch({ type: "ADDLANE", payload: data });
       handleClose();
     }
@@ -166,6 +181,7 @@ const AddLaneAndParking = () => {
       .catch((err) => console.log(err));
     console.log(await data);
     dispatch({ type: "LANEREMOVE", payload: id });
+    socketCon.emit("delete lane");
   };
   const body = (
     <div style={modalStyle} className={classes.paper}>
@@ -320,7 +336,8 @@ const AddLaneAndParking = () => {
                       time,
                       endTime
                     );
-                    if (time < endTime) backgroundColor = "red";
+                    if (time < endTime && data.isBooked === true)
+                      backgroundColor = "red";
                     return (
                       <Grid item xs={3}>
                         <Paper

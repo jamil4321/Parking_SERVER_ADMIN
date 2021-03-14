@@ -119,14 +119,18 @@ exports.cencelParking = async (req, res) => {
   let data = await booking.findOne({ id });
   booking.updateOne({ id }, { isBooking: false }, (err, success) => {
     if (err) {
-      res.json({ message: "Error in Updating " + err });
+      return res.json({ message: "Error in Updating " + err });
     }
   });
-  parking.updateOne({ id: data.id }, { isBooked: false }, (err, success) => {
-    if (err) {
-      res.json({ message: "Error in Updating " + err });
+  parking.updateOne(
+    { id: data.parkingId },
+    { isBooked: false },
+    (err, success) => {
+      if (err) {
+        return res.json({ message: "Error in Updating " + err });
+      }
     }
-  });
+  );
   const msg = {
     to: data.email, // Change to your recipient
     from: "jamil.ahmed@wah-brands.com", // Change to your verified sender
