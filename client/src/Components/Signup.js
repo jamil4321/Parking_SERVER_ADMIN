@@ -50,11 +50,14 @@ const SignUp = () => {
     e.preventDefault();
     if (name !== "" && email !== "" && password !== "" && confirm !== "") {
       if (password === confirm) {
-        let data = await fetch("http://127.0.0.1:2000/api/adminsignup", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, name, password }),
-        })
+        let data = await fetch(
+          "http://parking-finder-react.herokuapp.com/api/adminsignup",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, name, password }),
+          }
+        )
           .then((res) => res.json())
           .then((data) => data)
           .catch((err) => err);

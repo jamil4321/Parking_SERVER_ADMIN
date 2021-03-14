@@ -30,6 +30,7 @@ function App() {
           path="/admin/dashboard/home"
           component={!user || !user.name ? SignIn : Home}
         />
+        <Route path="/admin/dashboard/home/:id" component={Home} />
         <Route Path="/admin/dashboard/signup" component={SignUp} />
         <Route path="/authentication/activate/" component={Auth} />
       </Switch>

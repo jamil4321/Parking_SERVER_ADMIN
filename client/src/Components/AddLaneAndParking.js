@@ -91,13 +91,16 @@ const AddLaneAndParking = () => {
   });
 
   const getAllLane = async () => {
-    let data = await fetch("http://127.0.0.1:2000/api/getLane", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      },
-    })
+    let data = await fetch(
+      "http://parking-finder-react.herokuapp.com/api/getLane",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => data)
       .catch((err) => console.log(err));
@@ -108,8 +111,9 @@ const AddLaneAndParking = () => {
     setOpen(true);
   };
   React.useEffect(() => {
-    socketCon.on("parking Update", () => {
-      getPArkingViewData(laneID);
+    socketCon.on("parking Update", (data) => {
+      console.log("Booked", data);
+      getPArkingViewData(data);
     });
   }, []);
 
@@ -125,40 +129,40 @@ const AddLaneAndParking = () => {
   };
 
   const getPArkingViewData = async (laneId) => {
-    console.log(laneId);
-    if (laneId !== "") {
-      setLaneID(laneId);
-    }
-    if (laneId !== "") {
-      let data = await fetch("http://127.0.0.1:2000/api/getParking", {
+    let data = await fetch(
+      "http://parking-finder-react.herokuapp.com/api/getParking",
+      {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + accessToken,
         },
         body: JSON.stringify({ laneId }),
-      })
-        .then((res) => res.json())
-        .then((data) => data)
-        .catch((err) => console.log(err));
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => data)
+      .catch((err) => console.log(err));
 
-      dispatch({ type: "VIEWPARKINGSPACE", payload: data });
+    dispatch({ type: "VIEWPARKINGSPACE", payload: data });
 
-      handleOpenView();
-    }
+    handleOpenView();
   };
   const onSubmitForm = async (e) => {
     e.preventDefault();
     if ((laneName !== "", parkingArea > 0)) {
       let body = { laneName, parkingArea };
-      let data = await fetch("http://127.0.0.1:2000/api/addLane", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + accessToken,
-        },
-        body: JSON.stringify(body),
-      })
+      let data = await fetch(
+        "http://parking-finder-react.herokuapp.com/api/addLane",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + accessToken,
+          },
+          body: JSON.stringify(body),
+        }
+      )
         .then((res) => res.json())
         .then((data) => data)
         .catch((err) => console.log(err));
@@ -168,14 +172,17 @@ const AddLaneAndParking = () => {
     }
   };
   const deleteLane = async (id) => {
-    let data = await fetch("http://127.0.0.1:2000/api/removeLane", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      },
-      body: JSON.stringify({ laneId: id }),
-    })
+    let data = await fetch(
+      "http://parking-finder-react.herokuapp.com/api/removeLane",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+        body: JSON.stringify({ laneId: id }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => data)
       .catch((err) => console.log(err));

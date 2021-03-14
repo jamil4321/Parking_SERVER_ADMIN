@@ -13,7 +13,6 @@ const reducer = (state, action) => {
         accessToken: action.payload,
       };
     case "GETLANE":
-      console.log(action.payload.data);
       return {
         ...state,
         lane: action.payload.data,
@@ -48,10 +47,29 @@ const reducer = (state, action) => {
         parkingSpace: action.payload.data,
       };
     case "CANCELORDER":
-      let book = state.bookings.filter((data) => data.id === action.payload);
-      console.log("book", book);
       return {
         ...state,
+        bookings: state.bookings.map((data) => {
+          if (data.id === action.payload) {
+            data = {
+              ...data,
+              isBooking: false,
+            };
+            return data;
+          }
+          return data;
+        }),
+      };
+    case "Users":
+      return {
+        ...state,
+        users: action.payload.user,
+      };
+    case "REPLY":
+      console.log(action.payload);
+      return {
+        ...state,
+        chat: !action.payload.MSG ? [] : action.payload.MSG,
       };
     default:
       return state;

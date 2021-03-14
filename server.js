@@ -3,6 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const http = require("http");
 const socket = require("socket.io");
+const pathComp = require("express-static");
+const path = require("path");
 require("./db/connectDB");
 const port = process.env.PORT;
 const app = express();
@@ -33,12 +35,23 @@ io.on("connection", (socket) => {
     console.log("hi! From server");
     io.emit("UpdateLane", data);
   });
-  socket.on("parking Booked", () => {
-    io.emit("parking Update");
+  socket.on("parking Booked", (data) => {
+    console.log("Booked");
+    io.emit("parking Update", data);
   });
-  socket.on("msg send", () => {
-    io.emit("msg receive");
+  socket.on("msg send", (data) => {
+    console.log(data);
+    io.emit("msg receive", data);
   });
+  socket.on("Cancel Booking", () => {
+    io.emit("Canceled");
+  });
+});
+app.use(pathComp(process.env.PWD + "/client/build"));
+app.get("/", function (req, res) {
+  const index = path.join(process.env.PWD, "/client/build/index.html");
+  console.log(path);
+  res.sendFile(index);
 });
 
 server.listen(port, () => {

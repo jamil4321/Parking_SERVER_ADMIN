@@ -18,6 +18,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import AddLaneAndParking from "./AddLaneAndParking";
+import Chat from "./Chat";
 import Bookings from "./Bookings";
 
 const drawerWidth = 240;
@@ -153,6 +154,15 @@ export default function Home() {
             <ListItemText primary={"Booked Parking Log"} />
           </ListItem>
         </List>
+        <Divider />
+        <List>
+          <ListItem button onClick={() => setDrawerItem("Chat")}>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Chat"} />
+          </ListItem>
+        </List>
       </Drawer>
       <main
         className={clsx(classes.content, {
@@ -161,7 +171,8 @@ export default function Home() {
       >
         <div className={classes.drawerHeader} />
         {(drawerItem === "LaneView" && <AddLaneAndParking />) ||
-          (drawerItem === "ParkingLog" && <Bookings />)}
+          (drawerItem === "ParkingLog" && <Bookings />) ||
+          (drawerItem === "Chat" && <Chat />)}
       </main>
     </div>
   );

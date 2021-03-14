@@ -20,6 +20,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
+import socket from "../socket/socket";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,13 +44,16 @@ const Bookings = () => {
   });
   const distpatch = useDispatch();
   const getAllBookings = async () => {
-    let data = await fetch("http://127.0.0.1:2000/api/allBookings", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      },
-    })
+    let data = await fetch(
+      "http://parking-finder-react.herokuapp.com/api/allBookings",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => data)
       .catch((err) => console.log(err));
@@ -68,18 +72,22 @@ const Bookings = () => {
     return strTime;
   };
   const onCancelOrder = async (id) => {
-    let data = await fetch("http://127.0.0.1:2000/api/cencelBooking", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      },
-      body: JSON.stringify({ id }),
-    })
+    let data = await fetch(
+      "http://parking-finder-react.herokuapp.com/api/cencelBooking",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+        body: JSON.stringify({ id }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => data)
       .catch((err) => console.log(err));
     console.log(data);
+    socket.emit("Cancel Booking");
     dispatch({ type: "CANCELORDER", payload: id });
   };
   return (

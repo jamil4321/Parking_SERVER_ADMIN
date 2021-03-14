@@ -36,3 +36,59 @@
     transform: rotate(360deg);
   }
 }
+
+.chatbox{
+  margin-top:10%;
+}
+
+.otherUser {
+    position: relative;
+    width: 30%;
+    /* height: 100px; */
+    line-height: 46px;
+    color:black;
+    text-align: center;
+    padding: 0px;
+    background:greenyellow;
+    border-radius: 10px;
+    left:2%
+}
+
+.otherUser:after {
+   content: '';
+   position: absolute;
+   border-style: solid;
+   border-width: 15px 15px 0;
+   border-color: greenyellow transparent;
+   display: block;
+   width: 0;
+   z-index: 1;
+   bottom: -15px;
+   left: 10px;
+}
+.currentUser {
+    position: relative;
+    width: 30%;
+    /* height: 100px; */
+    line-height: 46px;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 0px;
+    background:#3f51b5;
+    border-radius: 10px;
+    right: -65%;
+}
+
+
+.currentUser:after {
+   content: '';
+   position: absolute;
+   border-style: solid;
+   border-width: 15px 15px 0;
+   border-color:#3f51b5 transparent;
+   display: block;
+   width: 0;
+   z-index: 1;
+   bottom: -15px;
+   right: 10px;
+}

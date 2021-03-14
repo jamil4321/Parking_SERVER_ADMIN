@@ -40,11 +40,14 @@ const SignIn = () => {
   const submitSignin = async (e) => {
     e.preventDefault();
     if (email !== "" && password !== "") {
-      let data = await fetch("http://127.0.0.1:2000/api/adminsignin", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      })
+      let data = await fetch(
+        "http://parking-finder-react.herokuapp.com/api/adminsignin",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      )
         .then((res) => res.json())
         .then((data) => data)
         .catch((err) => err);

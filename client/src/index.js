@@ -17,6 +17,8 @@ const initialState = {
   lane: [],
   parkingSpace: [],
   bookings: [],
+  users: [],
+  chat: [],
 };
 // Compose
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

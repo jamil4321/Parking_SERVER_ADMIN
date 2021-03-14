@@ -19,12 +19,13 @@ exports.newMsg = async (req, res) => {
   res.json({ newMsg });
 };
 exports.getMsg = async (req, res) => {
+  console.log(req.params.id);
   const MSG = await Chat.find({ ChatId: req.params.id });
   console.log(MSG);
   res.json({ MSG });
 };
 exports.getUsers = async (req, res) => {
-  const user = await User.find();
+  const user = await User.find({});
   console.log(user);
   res.json({ user });
 };
