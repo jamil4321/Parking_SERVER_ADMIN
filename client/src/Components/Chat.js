@@ -50,7 +50,8 @@ const Chat = () => {
 
   const getAllReply = async (userId) => {
     let data = await fetch(
-      "http://parking-finder-react.herokuapp.com/api/getMsg/" + userId,
+      "http://app-d83895ee-04a8-4417-b70b-0873e8873a83.cleverapps.io/api/getMsg/" +
+        userId,
       {
         method: "POST",
         headers: {
@@ -75,7 +76,7 @@ const Chat = () => {
   }, []);
   const getAllUsers = async () => {
     let data = await fetch(
-      "http://parking-finder-react.herokuapp.com/api/allusers",
+      "http://app-d83895ee-04a8-4417-b70b-0873e8873a83.cleverapps.io/api/allusers",
       {
         method: "POST",
         headers: {

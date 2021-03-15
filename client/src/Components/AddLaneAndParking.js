@@ -92,7 +92,7 @@ const AddLaneAndParking = () => {
 
   const getAllLane = async () => {
     let data = await fetch(
-      "http://parking-finder-react.herokuapp.com/api/getLane",
+      "http://app-d83895ee-04a8-4417-b70b-0873e8873a83.cleverapps.io/api/getLane",
       {
         method: "POST",
         headers: {
@@ -130,7 +130,7 @@ const AddLaneAndParking = () => {
 
   const getPArkingViewData = async (laneId) => {
     let data = await fetch(
-      "http://parking-finder-react.herokuapp.com/api/getParking",
+      "http://app-d83895ee-04a8-4417-b70b-0873e8873a83.cleverapps.io/api/getParking",
       {
         method: "POST",
         headers: {
@@ -153,7 +153,7 @@ const AddLaneAndParking = () => {
     if ((laneName !== "", parkingArea > 0)) {
       let body = { laneName, parkingArea };
       let data = await fetch(
-        "http://parking-finder-react.herokuapp.com/api/addLane",
+        "http://app-d83895ee-04a8-4417-b70b-0873e8873a83.cleverapps.io/api/addLane",
         {
           method: "POST",
           headers: {
@@ -173,7 +173,7 @@ const AddLaneAndParking = () => {
   };
   const deleteLane = async (id) => {
     let data = await fetch(
-      "http://parking-finder-react.herokuapp.com/api/removeLane",
+      "http://app-d83895ee-04a8-4417-b70b-0873e8873a83.cleverapps.io/api/removeLane",
       {
         method: "POST",
         headers: {

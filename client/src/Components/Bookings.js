@@ -45,7 +45,7 @@ const Bookings = () => {
   const distpatch = useDispatch();
   const getAllBookings = async () => {
     let data = await fetch(
-      "http://parking-finder-react.herokuapp.com/api/allBookings",
+      "http://app-d83895ee-04a8-4417-b70b-0873e8873a83.cleverapps.io/api/allBookings",
       {
         method: "POST",
         headers: {
@@ -73,7 +73,7 @@ const Bookings = () => {
   };
   const onCancelOrder = async (id) => {
     let data = await fetch(
-      "http://parking-finder-react.herokuapp.com/api/cencelBooking",
+      "http://app-d83895ee-04a8-4417-b70b-0873e8873a83.cleverapps.io/api/cencelBooking",
       {
         method: "POST",
         headers: {
