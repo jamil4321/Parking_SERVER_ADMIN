@@ -25,14 +25,11 @@ app.use("/api", authRoutes);
 app.use("/api", laneAndParkingRoutes);
 app.use("/api", Chat);
 
-// app.use(pathComp(process.env.PWD + "/client/build"));
-// console.log(pathComp(process.env.PWD + "/client/build"));
-// console.log(path.join(process.env.PWD, "/client/build/index.html"));
-app.get("*", function (req, res) {
-  console.log("Started");
-  res.sendFile(path.join(process.env.PWD + "/client/build/index.html"));
+const root = require("path").join(__dirname, "client", "build");
+app.use(express.static(root));
+app.get("*", (req, res) => {
+  res.sendFile("index.html", { root });
 });
-
 io.on("connection", (socket) => {
   console.log("User Connestec", socket.id);
   socket.on("newlane", (data) => {
