@@ -25,7 +25,7 @@ exports.signup = (req, res) => {
       text: "and easy to do anywhere, even with Node.js",
       html: `
                     <h2>Please Click on given Link to activate your account</h2>
-                    <a href="${process.env.ClIENT_URL}/authentication/activate/${token}">Link</a>
+                    <a href="app-d83895ee-04a8-4417-b70b-0873e8873a83.cleverapps.io/authentication/activate/${token}">Link</a>
                 `,
     };
     sgMail

@@ -29,6 +29,7 @@ app.use("/api", Chat);
 // console.log(pathComp(process.env.PWD + "/client/build"));
 // console.log(path.join(process.env.PWD, "/client/build/index.html"));
 app.get("*", function (req, res) {
+  console.log("Started");
   res.sendFile(path.join(process.env.PWD + "/client/build/index.html"));
 });
 
