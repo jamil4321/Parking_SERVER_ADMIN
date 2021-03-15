@@ -25,13 +25,11 @@ app.use("/api", authRoutes);
 app.use("/api", laneAndParkingRoutes);
 app.use("/api", Chat);
 
-app.use(pathComp(process.env.PWD + "/client/build"));
-console.log(pathComp(process.env.PWD + "/client/build"));
-console.log(path.join(process.env.PWD, "/client/build/index.html"));
+// app.use(pathComp(process.env.PWD + "/client/build"));
+// console.log(pathComp(process.env.PWD + "/client/build"));
+// console.log(path.join(process.env.PWD, "/client/build/index.html"));
 app.get("*", function (req, res) {
-  const index = path.join(process.env.PWD, "/client/build/index.html");
-  console.log(path);
-  res.sendFile(index);
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
 io.on("connection", (socket) => {
