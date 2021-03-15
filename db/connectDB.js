@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 mongoose
   .connect(
-    "mongodb+srv://admin:admin@myfisrtlerningapp.zbcua.mongodb.net/parking?retryWrites=true&w=majority",
+    "mongodb://uzwz23aawvqyop23efq8:UXZFnz7RyQTewTEVBo63@brselkfgq5rffvw-mongodb.services.clever-cloud.com:27017/brselkfgq5rffvw",
     {
       useNewUrlParser: true,
       useFindAndModify: true,
